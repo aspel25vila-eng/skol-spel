@@ -14,6 +14,8 @@ public class PlayerJump : MonoBehaviour
     public BoxCollider2D GroundCollider;
     public bool Onground;
 
+    Vector2 startPosition;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +34,12 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
+
+    private void Awake()
+    {
+        startPosition = transform.position;
+    }
+
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(GroundLayer == (1 << other.gameObject.layer))
@@ -45,5 +53,10 @@ public class PlayerJump : MonoBehaviour
         movement = new Vector2(moveX * MoveSpeed, _rigibody.linearVelocity .y);
         _rigibody.linearVelocity = movement;
 
+    }
+
+    public void Die()
+    {
+        transform.position = startPosition;
     }
 }
